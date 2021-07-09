@@ -1,3 +1,10 @@
-.input-line label {
-    display: block;
+
+.container-1{
+    display: flex;
+    flex-direction: row;
+}
+.container-1 div{
+    border: 1px #ccc solid;
+    padding: 10px;
+    align-items: center;
 }
