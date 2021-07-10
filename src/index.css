@@ -1,8 +1,8 @@
 :root {
   --success-color: #19ae1f;
-  --secondary-color: #1F19AE;
-  --disabled-color: #19A8AE;
-  --warning-color: #AE1F19;
+  --secondary-color: #1f19ae;
+  --disabled-color: #19a8ae;
+  --warning-color: #ae1f19;
 }
 
 html,
@@ -62,7 +62,7 @@ select {
   height: 1.8em;
 }
 
-form button {
+form .button {
   box-shadow: inset 0px 1px 0px 0px #a4e271;
   background: linear-gradient(to bottom, #89c403 5%, #77a809 100%);
   background-color: var(--success-color);
@@ -78,11 +78,11 @@ form button {
   text-decoration: none;
   text-shadow: 0px 1px 0px #528009;
 }
-form button:hover {
+form .button:hover {
   background: linear-gradient(to bottom, #77a809 5%, #89c403 100%);
   background-color: #77a809;
 }
-form button:active {
+form .button:active {
   position: relative;
   top: 1px;
 }

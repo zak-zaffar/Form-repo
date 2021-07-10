@@ -4,7 +4,7 @@
   "description": "This is an application form, which uses HTML 5, CSS, JS, and PHP for the backend.",
   "main": "src",
   "scripts": {
-    "start": "php src",
+    "start": "cd src && php -S localhost:3039",
     "lint": "prettier --write . && eslint \"./**/*.js\" --fix",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
