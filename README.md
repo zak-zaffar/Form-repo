@@ -12,6 +12,12 @@ This will launch the src directory as a php basic server, hosted at (localhost:3
 composer start
 ```
 
+### Running the Tests
+
+``` sh
+composer test
+```
+
 ### Requirements
 
 - PHP >7.4
