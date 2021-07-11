@@ -1,49 +1,52 @@
 <?php
-$firstName = $_GET['firstname'] ?? null;
-$lastName = $_GET['lastname'] ?? null;
-$email = $_GET['email'] ?? null;
-$phoneNumber = $_GET['phonenumber'] ?? null;
-$address1 = $_GET['address1'] ?? null;
-$address2 = $_GET['address2'] ?? null;
-$town = $_GET['town'] ?? null;
-$county = $_GET['county'] ?? null;
-$postcode = $_GET['postcode'] ?? null;
-$country = $_GET['country'] ?? null;
-$description =$_GET['description'] ?? null;
-$fileName = $_GET['filename'] ?? null;
 
-run();
+$dataVars = [
+  'firstName' => $_GET['firstname'] ?? null,
+  'lastName' => $_GET['lastname'] ?? null,
+  'email' => $_GET['email'] ?? null,
+  'phoneNumber' => $_GET['phonenumber'] ?? null,
+  'address1' => $_GET['address1'] ?? null,
+  'address2' => $_GET['address2'] ?? null,
+  'town' => $_GET['town'] ?? null,
+  'county' => $_GET['county'] ?? null,
+  'postcode' => $_GET['postcode'] ?? null,
+  'country' => $_GET['country'] ?? null,
+  'description' => $_GET['description'] ?? null,
+  'fileName' => $_GET['filename'] ?? null,
+];
 
-function verifyData() {
+run($dataVars);
+
+function verifyData($dataVars) {
     return
-    gettype($_GET['firstname'] ?? null) === 'string'
-     && gettype($_GET['lastname'] ?? null) ==='string'
-     && filter_var($_GET['email'] ?? null, FILTER_VALIDATE_EMAIL)
-     && gettype($_GET['phonenumber'] ?? null) ==='string'
-     && gettype($_GET['address1'] ?? null) ==='string'
-     && gettype($_GET['address2'] ?? null) ==='string'
-     && gettype($_GET['town'] ?? null) ==='string'
-     && gettype($_GET['county'] ?? null) ==='string'
-     && gettype($_GET['postcode'] ?? null) ==='string'
-     && gettype($_GET['description'] ?? null) ==='string'
-     && gettype($_GET['country'] ?? null) ==='string'
-     && gettype($_GET['filename'] ?? null) ==='string';
+    gettype($dataVars['firstname'] ?? null) === 'string'
+     && gettype($dataVars['lastname'] ?? null) ==='string'
+     && filter_var($dataVars['email'] ?? null, FILTER_VALIDATE_EMAIL)
+     && gettype($dataVars['phonenumber'] ?? null) ==='string'
+     && gettype($dataVars['address1'] ?? null) ==='string'
+     && gettype($dataVars['address2'] ?? null) ==='string'
+     && gettype($dataVars['town'] ?? null) ==='string'
+     && gettype($dataVars['county'] ?? null) ==='string'
+     && gettype($dataVars['postcode'] ?? null) ==='string'
+     && gettype($dataVars['description'] ?? null) ==='string'
+     && gettype($dataVars['country'] ?? null) ==='string'
+     && gettype($dataVars['filename'] ?? null) ==='string';
 }
 
-function packageData() {
+function packageData($dataVars) {
     return [
-        'firstname' => filter_var($_GET['firstname'], FILTER_SANITIZE_STRING),
-        'lastname' => filter_var($_GET['lastname'], FILTER_SANITIZE_STRING),
-        'email' => filter_var($_GET['email'], FILTER_SANITIZE_EMAIL),
-        'phonenumber' => filter_var($_GET['phonenumber'], FILTER_SANITIZE_NUMBER_INT),
-        'address1' => filter_var($_GET['address1'], FILTER_SANITIZE_STRING),
-        'address2' => filter_var($_GET['address2'], FILTER_SANITIZE_STRING),
-        'town' => filter_var($_GET['town'], FILTER_SANITIZE_STRING),
-        'county' => filter_var($_GET['county'], FILTER_SANITIZE_STRING),
-        'postcode' => filter_var($_GET['postcode'], FILTER_SANITIZE_STRING),
-        'description' => filter_var($_GET['description'], FILTER_SANITIZE_STRING),
-        'country' => filter_var($_GET['country'], FILTER_SANITIZE_STRING),
-        'filename' => filter_var($_GET['filename'], FILTER_SANITIZE_STRING)
+        'firstname' => filter_var($dataVars['firstname'], FILTER_SANITIZE_STRING),
+        'lastname' => filter_var($dataVars['lastname'], FILTER_SANITIZE_STRING),
+        'email' => filter_var($dataVars['email'], FILTER_SANITIZE_EMAIL),
+        'phonenumber' => filter_var($dataVars['phonenumber'], FILTER_SANITIZE_NUMBER_INT),
+        'address1' => filter_var($dataVars['address1'], FILTER_SANITIZE_STRING),
+        'address2' => filter_var($dataVars['address2'], FILTER_SANITIZE_STRING),
+        'town' => filter_var($dataVars['town'], FILTER_SANITIZE_STRING),
+        'county' => filter_var($dataVars['county'], FILTER_SANITIZE_STRING),
+        'postcode' => filter_var($dataVars['postcode'], FILTER_SANITIZE_STRING),
+        'description' => filter_var($dataVars['description'], FILTER_SANITIZE_STRING),
+        'country' => filter_var($dataVars['country'], FILTER_SANITIZE_STRING),
+        'filename' => filter_var($dataVars['filename'], FILTER_SANITIZE_STRING)
     ];
 }
 
@@ -61,11 +64,11 @@ function sendEmail($emailData) {
     }
 }
 
-function run() {
-    if (verifyData()) {
-        $emailDAta = packageData();
+function run($dataVars) {
+    if (verifyData($dataVars)) {
+        $emailData = packageData($dataVars);
     
-        sendEmail($emailDAta);
+        sendEmail($emailData);
     }
 }
 

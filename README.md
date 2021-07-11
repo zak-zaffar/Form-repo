@@ -14,5 +14,6 @@ composer start
 
 ### Requirements
 
-- PHP >7
+- PHP >7.4
+- Composer
 

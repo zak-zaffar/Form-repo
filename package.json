@@ -1,0 +1,23 @@
+{
+  "name": "form-repo",
+  "version": "1.0.0",
+  "description": "This is an application form, which uses HTML 5, CSS, JS, and PHP for the backend.",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "cypress": "^7.7.0"
+  },
+  "scripts": {
+    "test": "cypress open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zak-zaffar/Form-repo.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zak-zaffar/Form-repo/issues"
+  },
+  "homepage": "https://github.com/zak-zaffar/Form-repo#readme"
+}

@@ -1,6 +1,8 @@
 {
+    "name": "zak/form-repo",
+    "description": "form repo submission",
     "scripts": {
         "start": "cd src && php -S localhost:3039",
-        "lint": ""
+        "test": "cd test && php ./index.test.php"
     }
 }
