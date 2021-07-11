@@ -1,0 +1,6 @@
+{
+    "scripts": {
+        "start": "cd src && php -S localhost:3039",
+        "lint": ""
+    }
+}

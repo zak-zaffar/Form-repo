@@ -1,5 +1,4 @@
 <?php
-
 $firstName = $_GET['firstname'] ?? null;
 $lastName = $_GET['lastname'] ?? null;
 $email = $_GET['email'] ?? null;
