@@ -1,10 +1,9 @@
 <?php
-
 $dataVars = [
-  'firstName' => $_GET['firstname'] ?? null,
-  'lastName' => $_GET['lastname'] ?? null,
+  'firstname' => $_GET['firstname'] ?? null,
+  'lastname' => $_GET['lastname'] ?? null,
   'email' => $_GET['email'] ?? null,
-  'phoneNumber' => $_GET['phonenumber'] ?? null,
+  'phonenumber' => $_GET['phonenumber'] ?? null,
   'address1' => $_GET['address1'] ?? null,
   'address2' => $_GET['address2'] ?? null,
   'town' => $_GET['town'] ?? null,
@@ -12,14 +11,21 @@ $dataVars = [
   'postcode' => $_GET['postcode'] ?? null,
   'country' => $_GET['country'] ?? null,
   'description' => $_GET['description'] ?? null,
-  'fileName' => $_GET['filename'] ?? null,
+  'filename' => $_GET['filename'] ?? null,
 ];
 
 run($dataVars);
 
+function run($dataVars) {
+  if (verifyData($dataVars)) {
+      $emailData = packageData($dataVars);
+  
+      sendEmail($emailData);
+  }
+}
+
 function verifyData($dataVars) {
-    return
-    gettype($dataVars['firstname'] ?? null) === 'string'
+    return gettype($dataVars['firstname'] ?? null) === 'string'
      && gettype($dataVars['lastname'] ?? null) ==='string'
      && filter_var($dataVars['email'] ?? null, FILTER_VALIDATE_EMAIL)
      && gettype($dataVars['phonenumber'] ?? null) ==='string'
@@ -53,22 +59,12 @@ function packageData($dataVars) {
 function sendEmail($emailData) {
     $emailFrom = 'Greatapplication@somthing.com';
     $headers = "From: ${emailFrom}";
-
     $body = json_encode($emailData);
+  
     $sentMailSuccess = mail($emailData['email'], 'message from this app', $body, $headers);
+  
     if (!$sentMailSuccess) {
         echo "<p class=\"error\">There was an error sending the email.</p>";
-        $error = error_get_last();
-
-        print_r($error);
-    }
-}
-
-function run($dataVars) {
-    if (verifyData($dataVars)) {
-        $emailData = packageData($dataVars);
-    
-        sendEmail($emailData);
     }
 }
 
@@ -85,15 +81,15 @@ function run($dataVars) {
         <div class="container">
           <div class="box">
             <label for="firstname">First name</label>
-            <input type="text" id="firstname" name="firstname" required value="<?php echo $firstName ?>"/>
+            <input type="text" id="firstname" name="firstname" required value="<?php echo $dataVars['firstname'] ?>"/>
           </div>
           <div class="box">
             <label for="lastname">Last name</label>
-            <input type="text" id="lastname" name="lastname" required value="<?php echo $lastName ?>"/>
+            <input type="text" id="lastname" name="lastname" required value="<?php echo $dataVars['lastname'] ?>"/>
           </div>
           <div class="box">
             <label for="email">Email</label>
-            <input type="email" id="email" name="email" required value="<?php echo $email ?>" />
+            <input type="email" id="email" name="email" required value="<?php echo $dataVars['email'] ?>" />
           </div>
           <div class="box">
             <label for="phonenumber">Phone Number</label>
@@ -103,33 +99,33 @@ function run($dataVars) {
               name="phonenumber"
               pattern="[0-9]{11}"
               required
-              value="<?php echo $phoneNumber ?>"
+              value="<?php echo $dataVars['phonenumber'] ?>"
             />
           </div>
           <div class="box">
             <label for="address1">Address line 1</label>
-            <input type="text" id="address1" name="address1" required value="<?php echo $address1 ?>"/>
+            <input type="text" id="address1" name="address1" required value="<?php echo $dataVars['address1'] ?>"/>
           </div>
           <div class="box">
             <label for="address2">Address line 2<sup>(optional)</sup></label>
-            <input type="text" id="address2" name="address2" value="<?php echo $address2 ?>"/>
+            <input type="text" id="address2" name="address2" value="<?php echo $dataVars['address2'] ?>"/>
           </div>
           <div class="box">
             <label for="town">Town</label>
-            <input type="text" id="town" name="town" required value="<?php echo $town ?>"/>
+            <input type="text" id="town" name="town" required value="<?php echo $dataVars['town'] ?>"/>
           </div>
           <div class="box">
             <label for="county">County</label>
-            <input type="text" id="county" name="county" required value="<?php echo $county ?>"/>
+            <input type="text" id="county" name="county" required value="<?php echo $dataVars['county'] ?>"/>
           </div>
           <div class="box">
             <label for="postcode">Postcode</label>
-            <input type="text" id="postcode" name="postcode" required value="<?php echo $postcode ?>"/>
+            <input type="text" id="postcode" name="postcode" required value="<?php echo $dataVars['postcode'] ?>"/>
           </div>
           <div class="box">
             <label for="country">Country</label>
             <select id="country" name="country">
-              <option value="United Kingdom" selected="<?php $country ? 'not-selected' : 'selected' ?>">United Kingdom</option>
+              <option value="United Kingdom">United Kingdom</option>
               <option value="Afghanistan">Afghanistan</option>
               <option value="Aland Islands">Aland Islands</option>
               <option value="Albania">Albania</option>
@@ -452,11 +448,12 @@ function run($dataVars) {
             rows="4"
             cols="58"
             required
+            value="<?php echo $dataVars['description'] ?>"
           ></textarea>
         </div>
         <div class="box">
           <label for="cv">Upload your C.V</label>
-          <input type="file" id="myfile" name="filename" required />
+          <input type="file" id="filename" name="filename" required"/>
         </div>
         <div class="controls box">
           <input class="button" type="submit" value="Submit"/>

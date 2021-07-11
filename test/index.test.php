@@ -14,18 +14,25 @@ class TestRunner {
         'county' => 'London',
         'postcode' => 'CL1 1CL',
         'country' => 'United Country',
-        'description' => 'I am looking for job plz',
+        'description' => 'CV application',
         'filename' => 'test.png',
     ];
 
     static function runTests() {
         echo "Starting tests for index.php\n";
-        echo "===\n";
+        echo "======\n";
 
-        self::test_run();
-        self::test_verifyData();
-        self::test_packageData();
-        self::test_sendEmail();
+        $runResult = self::test_run();
+        $verifyDataResult = self::test_verifyData();
+        $packageDataResult = self::test_packageData();
+        $sendEmailResult = self::test_sendEmail();
+
+        if (!$runResult || !$verifyDataResult || !$packageDataResult || !$sendEmailResult) {
+            throw new Error('Tests failed. Check above for details.');
+        }
+
+        echo "======\n";
+        echo "Index.php tests passed.";
     }
 
     static function test_run() {
@@ -34,11 +41,13 @@ class TestRunner {
             run(self::$mockFormData);
         } catch (Exception $e) {
             echo "O Function run failed with an exception.\n";
+            print_r($e);
 
-            return;
+            return false;
         }
 
         echo "X Function run passed tests.\n";
+        return true;
     }
 
     static function test_verifyData() {
@@ -47,11 +56,13 @@ class TestRunner {
             verifyData(self::$mockFormData);
         } catch (Exception $e) {
             echo "O Function varifyData failed with an exception.\n";
+            print_r($e);
 
-            return;
+            return false;
         }
 
         echo "X Function varifyData passed tests.\n";
+        return true;
     }
 
     static function test_packageData() {
@@ -60,11 +71,13 @@ class TestRunner {
             packageData(self::$mockFormData);
         } catch (Exception $e) {
             echo "O Function packageData failed with an exception.\n";
+            print_r($e);
 
-            return;
+            return false;
         }
 
         echo "X Function packageData passed tests.\n";
+        return true;
     }
 
     static function test_sendEmail() {
@@ -73,11 +86,13 @@ class TestRunner {
             sendEmail(self::$mockFormData);
         } catch (Exception $e) {
             echo "O Function sendEmail failed with an exception.\n";
+            print_r($e);
 
-            return;
+            return false;
         }
 
         echo "X Function sendEmail passed tests.\n";
+        return true;
     }
 }
 
